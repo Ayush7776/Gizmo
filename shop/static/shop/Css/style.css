@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+body {
+    margin: 0px;
+    padding: 0px;
+    background-image: url(../Img/patternpad.svg);
+    background-size: cover;
+    font-family: 'Sora', sans-serif;
+
+}
+
+.box {
+    height: 430px;
+    width: 250px;
+    text-align: center;
+    margin: auto;
+    margin-top: 15vh;
+    border-radius: 10px;
+    background-color: #28292b;
+    filter: drop-shadow(2px 4px 6px black);
+    user-select: none;
+
+}
+
+
+.logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+    margin-right: 20px;
+
+}
+
+.name {
+    color: #FAFA33;
+    margin: 0px;
+    user-select: none;
+}
+.disable{
+    display: none;
+}
+
+::placeholder {
+    color: #fefefe;
+    font-family: 'Sora', sans-serif;
+}
+
+.input input {
+    margin-top: 10px;
+    height: 25px;
+    width: 180px;
+    background-color: #28292b;
+    color: #FAFA33;
+    border: solid 0px;
+    border-bottom: solid 1px;
+    outline: none;
+
+}
+.input button {
+    margin-top: 10px;
+    height: 30px;
+    width: 190px;
+    background-color: #FAFA33;
+    color: black;
+    border: solid 0px;
+    border-bottom: solid 1px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Sora', sans-serif;
+
+
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+.ShowHidePass {
+    margin-top: 10px;
+    width: 180px;
+    color: #FAFA33;
+    cursor: pointer;
+    user-select: none;
+}
+
+.input button:hover {
+    background-color: #D6D1BB;
+}
+
+.links {
+    margin-top: 10px;
+}
+
+.links a {
+    color: #FAFA33;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+a:hover {
+    color: #D6D1BB;
+}
+.shopnow {
+    color: black;
+    background-color: #FAFA33;
+    font-size: 15px;
+    font-weight: bolder;
+    border: solid 0px;
+    border-radius: 51px;
+    padding: 15px;
+}
+.shopnow:hover {
+    background-color: black;
+    color: white;
+    font-weight: normal;
+}
