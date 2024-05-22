@@ -1,0 +1,49 @@
+{% extends 'shop/basic.html' %}
+{% block body %}
+
+{% if total_price > 0 %}
+<div class="col-lg-12 text-center">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Serial No.</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.product }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>
+                    <a href="{% url 'update_cart' item.product.id 'increase' %}" class='me-2 btn btn-dark btn-sm'>+</a>
+                    <span>{{ item.quantity }}</span>
+                    <a href="{% url 'update_cart' item.product.id 'decrease' %}" class='ms-2 btn btn-dark btn-sm'>-</a>
+                </td>
+                <td>
+                    <a href="{% url 'remove_from_cart' item.product.id %}"
+                        class='btn btn-dark rounded-5 btn-sm'>Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="row text-center my-3">
+    <div class="col-lg-6">
+        <h4>Total Price: {{ total_price}}</h4>
+    </div>
+    <div class="col-lg-6">
+        <button class="btn btn-primary shopnow " name="Purchess">Procede To Pay</button>
+    </div>
+</div>
+{% else %}
+<div class="row text-center my-3">
+    <a href="{% url 'index' %}" class="btn btn-primary shopnow " name="Purchess">Your Cart Is Empty Click Here To Continue Shopping</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,11 +1,39 @@
-from django.shortcuts import render
-from .models import Product,Contact
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Product,Contact,CartItem
 # Create your views here.
 from django.http import HttpResponse
 
 def index(request):
     products=Product.objects.all()
-    return render(request,'shop/index.html',{'products':products})
+    cart_items = CartItem.objects.all()
+    return render(request,'shop/index.html',{'products':products,'cart_items':cart_items})
+
+def cart_detail(request):
+    cart_items = CartItem.objects.all()
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'shop/cart_detail.html', {'cart_items': cart_items, 'total_price': total_price})
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart_item, created = CartItem.objects.get_or_create(product=product)
+    if not created:
+        cart_item.quantity += 1
+    cart_item.save()
+    return redirect('cart_detail')
+
+def update_cart(request, product_id, action):
+    cart_item = get_object_or_404(CartItem, product_id=product_id)
+    if action == 'increase':
+        cart_item.quantity += 1
+    elif action == 'decrease':
+        cart_item.quantity = max(1, cart_item.quantity - 1)
+    cart_item.save()
+    return redirect('cart_detail')
+
+def remove_from_cart(request, product_id):
+    cart_item = get_object_or_404(CartItem, product_id=product_id)
+    cart_item.delete()
+    return redirect('cart_detail')
 
 def about(request):
     return render(request,'shop/about.html')

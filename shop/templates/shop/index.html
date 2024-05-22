@@ -61,10 +61,7 @@
             <h5 class="card-text text-primary mt-2 float-start user-select-none">
               ₹{{ i.price }}
             </h5>
-            <span id="divpr{{i.id}}" class="divpr">
-              <button id="pr{{i.id}}" class="float-end btn btn-dark cart">Add To Cart</button>
-            </span>
-            <!-- <button type="" name="Add_To_Cart" id="pr{{i.id}}" class="float-end btn btn-dark cart">Add To Cart</button> -->
+            <a href="{% url 'add_to_cart' i.id %}" type="button" name="Add_To_Cart" id="pr{{i.id}}" class="float-end btn btn-dark cart">Add To Cart</a>
             <!-- <button name="Add_To_Cart" class="btn btn-primary shopnow">Buy Now</button> -->
           </div>
         </div>
