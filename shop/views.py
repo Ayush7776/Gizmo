@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product,Contact,CartItem
+from .models import Product,Contact,CartItem,Order,OrderItem
 # Create your views here.
 from django.http import HttpResponse
 
@@ -19,7 +19,7 @@ def add_to_cart(request, product_id):
     if not created:
         cart_item.quantity += 1
     cart_item.save()
-    return redirect('cart_detail')
+    return redirect('index')
 
 def update_cart(request, product_id, action):
     cart_item = get_object_or_404(CartItem, product_id=product_id)
@@ -35,8 +35,31 @@ def remove_from_cart(request, product_id):
     cart_item.delete()
     return redirect('cart_detail')
 
-def about(request):
-    return render(request,'shop/about.html')
+def checkout(request):
+    if request.method == 'POST':
+        cart_items = CartItem.objects.all()
+        if not cart_items:
+            return HttpResponse("Your cart is empty")
+        
+        total_price = sum(item.get_total_price() for item in cart_items)
+        name=request.POST['fname']
+        email=request.POST['email']
+        phone=request.POST['phone']
+        address=request.POST['address']+" "+request.POST['pincode']
+        order=Order.objects.create(name=name,email=email,phone=phone,address=address,total_price=total_price,paid=True)
+
+        for item in cart_items:
+            OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, price=item.product.price)
+        
+        cart_items.delete()
+        return render(request, 'shop/checkout_success.html', {'order': order})
+    return render(request, 'shop/checkout.html')
+
+
+def order_list(request):
+    orders = Order.objects.filter(paid=True)
+    return render(request, 'shop/order_list.html', {'orders': orders})
+
 
 def contact(request):
     if request.method=='POST':
@@ -49,15 +72,15 @@ def contact(request):
         return render(request,'shop/contact.html',{'massage':"We Will Contact You Imegetly","color":"danger"})
     return render(request,'shop/contact.html')
 
-def tracker(request):
-    return render(request,'shop/tracker.html')
-
-def search(request):
-    return render(request,'shop/search.html')
 
 def productView(request,id):
     product=Product.objects.get(id=id)
     return render(request,'shop/productView.html',{'product':product})
 
-def checkout(request):
-    return render(request,'shop/checkout.html')
+def tracker(request):
+    return render(request,'shop/tracker.html')
+
+def search(request):
+    return render(request,'shop/search.html')
+def about(request):
+    return render(request,'shop/about.html')

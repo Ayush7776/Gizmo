@@ -2,7 +2,7 @@
 {% block title%} Gizmo- {{product.product_name}} {% endblock %}
 {% block body%}
 <div class="container">
-    <div class="row featurette">
+    <div class="row featurette user-select-none">
         <div class="col-md-7 my-auto">
             <!-- <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500"
                 height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500"
@@ -18,7 +18,7 @@
             <p class="lead fs-6">{{product.desc}}</p>
             <p class="text-primary fs-4 fw-medium">₹ {{product.price}}</p>
             <p class="text-secondary">{{product.pub_date}}</p>
-            <button name="Add_To_Cart" id="{{product.id}}" class="btn btn-dark cart">Add To Cart</button>
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark cart">Add To Cart</a>
             <button name="Add_To_Cart" class="btn btn-primary shopnow ms-2">Buy Now</button>
         </div>
     </div>

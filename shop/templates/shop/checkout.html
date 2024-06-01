@@ -1,3 +1,39 @@
 {% extends 'shop/basic.html' %}
 {% block title%} Gizmo- AboutUs{% endblock %}
-{% block body%} <h1>This Is Checkout</h1>{% endblock %}
+{% block body%}
+<main class="form-signin w-100 m-auto container">
+    <form class="text-center" method="post">
+        {% csrf_token %}
+        <p id="contact" class="logoname float-none mb-5">Type Your Address</p>
+        <div class="row featurette user-select-none">
+            <div class="col-md-7 my-auto">
+                <div class="form-floating my-3">
+                    <input name="fname" type="text" class="form-control" id="floatingName">
+                    <label for="floatingInput">Full Name</label>
+                </div>
+                <div class="form-floating my-3">
+                    <input name="email" type="email" class="form-control" id="floatingEmail">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating my-3">
+                    <input name="phone" type="tel" class="form-control" id="floatingPhone">
+                    <label for="floatingInput">Phone</label>
+                </div>
+            </div>
+            <div class="col-md-5 my-auto">
+            <div class="form-floating my-3">
+                <textarea name="address" type="text" class="form-control" id="desc"></textarea>
+                <label for="desc">Address</label>
+            </div>
+            <div class="form-floating my-3">
+                <input name="pincode" type="tel" class="form-control" id="pincode">
+                <label for="floatingInput">Pincode</label>
+            </div>
+            <button class="w-50 btn btn-primary shopnow" type="submit">Place Order</button>
+    </form>
+</main>
+<!-- <form method="post">
+    {% csrf_token %}
+    <button type="submit">Place Order</button>
+</form> -->
+{% endblock %}
