@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product,Contact,CartItem,Order,OrderItem
-# Create your views here.
+from django.conf import settings
 from django.http import HttpResponse
 
 def index(request):
@@ -35,6 +35,8 @@ def remove_from_cart(request, product_id):
     cart_item.delete()
     return redirect('cart_detail')
 
+
+
 def checkout(request):
     if request.method == 'POST':
         cart_items = CartItem.objects.all()
@@ -52,6 +54,7 @@ def checkout(request):
             OrderItem.objects.create(order=order, product=item.product, quantity=item.quantity, price=item.product.price)
         
         cart_items.delete()
+
         return render(request, 'shop/checkout_success.html', {'order': order})
     return render(request, 'shop/checkout.html')
 
